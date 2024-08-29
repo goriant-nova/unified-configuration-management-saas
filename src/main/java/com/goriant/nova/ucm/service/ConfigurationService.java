@@ -33,7 +33,6 @@ public class ConfigurationService {
 
     public List<ConfigurationDTO> getAll(){
         List<Configuration> configs = repository.findAll();
-
         List<ConfigurationDTO> result = new ArrayList<>();
         for(Configuration config : configs) {
             ConfigurationDTO dto = new ConfigurationDTO();

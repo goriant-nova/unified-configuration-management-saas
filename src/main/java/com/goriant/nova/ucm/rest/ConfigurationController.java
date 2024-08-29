@@ -1,13 +1,16 @@
 package com.goriant.nova.ucm.rest;
 
 import com.goriant.nova.ucm.dto.ConfigurationDTO;
-import com.goriant.nova.ucm.entity.Configuration;
 import com.goriant.nova.ucm.service.ConfigurationService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.ClientInfoStatus;
 import java.util.List;
 
 
@@ -45,7 +48,8 @@ public class ConfigurationController {
         return service.getAll();*/
     // Two in one
     @GetMapping
-    public ResponseEntity<?> getConfig(@RequestParam(required = false) Long id){ // ResponseEntity<?>
+    public ResponseEntity<?> getConfig(@RequestParam(required = false) Long id){
+        // ResponseEntity: lớp đại diện cho toàn bộ phản hồi HTTP / <?> : cho phép trả về phản hồi với bất kỳ kiểu dữ liệu
         if (id != null){
             ConfigurationDTO config = service.getById(id);
             return ResponseEntity.ok(config);
