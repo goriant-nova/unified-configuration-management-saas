@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -85,6 +87,13 @@ public class bai1 {
         var score = 90.25;
         var total = 100;
         System.out.println("%s:%nScore: %f out of %d".formatted(name3, score, total));
+        // khởi tọa lis5
+        ArrayList<String> lst = new ArrayList<>() ;
+        // khởi tọa với số lượng pt ban đầu
+        ArrayList<String> lst2 = new ArrayList<>(5) ;
+        // Khởi tạo list với các phần tử ban đầu
+        ArrayList<Integer> lst3 = new ArrayList<>(List.of(1,2,3,4,5,6,7,6,5,3,4)) ;
+
     }
 
 }

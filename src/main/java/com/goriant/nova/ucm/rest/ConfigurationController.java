@@ -2,15 +2,23 @@ package com.goriant.nova.ucm.rest;
 
 import com.goriant.nova.ucm.dto.ConfigurationDTO;
 import com.goriant.nova.ucm.service.ConfigurationService;
+import jakarta.websocket.server.PathParam;
+import org.apache.coyote.Request;
 import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.naming.Name;
 import java.util.List;
 
 
@@ -60,4 +68,38 @@ public class ConfigurationController {
         }
 
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateConfig(@PathVariable Long id, @RequestBody ConfigurationDTO config) {
+        if (service.validate(config)) {
+            try {
+                service.update(id, config);
+                return ResponseEntity.ok("Configuration updated successfully");
+            } catch (RuntimeException e) {
+                return ResponseEntity.notFound().build();
+            }
+        } else {
+            return ResponseEntity.badRequest().body("Error updating configuration due to Config NULL");
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteConfig(@PathVariable Long id) {
+        try {
+            service.delete(id);
+            return ResponseEntity.ok("Configuration deleted successfully");
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @GetMapping("/get-by-name")
+    public ResponseEntity<?> findByConfigName(@RequestParam("name") String name) {
+        ConfigurationDTO config = service.getByConfigName(name);
+        if (config != null) {
+            return ResponseEntity.ok(config);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
