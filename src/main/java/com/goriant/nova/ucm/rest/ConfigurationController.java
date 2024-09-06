@@ -2,7 +2,6 @@ package com.goriant.nova.ucm.rest;
 
 import com.goriant.nova.ucm.dto.ConfigurationDTO;
 import com.goriant.nova.ucm.service.ConfigurationService;
-import jakarta.websocket.server.PathParam;
 import org.apache.coyote.Request;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
@@ -68,7 +67,7 @@ public class ConfigurationController {
         }
 
     }
-
+// bản update
     @PutMapping("/{id}")
     public ResponseEntity<String> updateConfig(@PathVariable Long id, @RequestBody ConfigurationDTO config) {
         if (service.validate(config)) {
@@ -102,4 +101,5 @@ public class ConfigurationController {
         }
     }
 
-}
+    }
+
